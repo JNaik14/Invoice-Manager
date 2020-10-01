@@ -1,0 +1,18 @@
+#ifndef CLIENT_H
+#define CLIENT_H
+
+#include "Company.h"
+
+
+class Client : public Company
+{
+public:
+    /** Default constructor */
+    Client() = default;
+    Client(const std::string& Name,const std::string& BillTo,const std::string& GSTIN,const std::string& Address,const std::string& City,const std::string& Counrty,const std::string& ZipCode);
+    /** Default destructor */
+    virtual ~Client();
+
+};
+
+#endif // CLIENT_H

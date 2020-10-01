@@ -1,0 +1,23 @@
+#ifndef OWNERSAVE_H
+#define OWNERSAVE_H
+#include "Owner.h"
+#include <fstream>
+using namespace std;
+class OwnerSave
+{
+public:
+    /** Default constructor */
+    Owner o;
+    void read(fstream& file);
+    void write(fstream& file);
+    bool read_from_file(int a,Owner& I);
+    void write_in_file(int a,Owner& I);
+    void seek_object(fstream& file,int a);
+    int countcheck(fstream& file);
+
+protected:
+
+private:
+};
+
+#endif // OWNERSAVE_H

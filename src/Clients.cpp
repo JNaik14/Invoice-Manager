@@ -1,0 +1,53 @@
+#include "Clients.h"
+
+Clients::Clients()
+{
+    ClientsList.reserve(10000);
+    std::cerr << "Clients Called By Default Contructor\n";
+}
+Clients::~Clients()
+{
+    std::cerr << "Clients Deleted\n";
+}
+void Clients::AddClient(const std::string& Name,const std::string& BillTo,const std::string& GSTIN,const std::string& Address,const std::string& City,const std::string& Country,const std::string& ZipCode)
+{
+    ClientsList.emplace_back(Name,BillTo,GSTIN,Address,City,Country,ZipCode);
+}
+void Clients::AddClientsFromFile(const std::string& file)
+{
+    std::ifstream in(file);
+    for(std::string line; std::getline(in,line);)
+    {
+//        std::cerr << line;
+        Client tmp;
+        tmp.SetDataFromString(line);
+        AddClient(tmp.GetName(),tmp.GetExtra(),tmp.GetGSTIN(),tmp.GetAddress(),tmp.GetCity(),tmp.GetCountry(),tmp.GetzipCode());
+    }
+}
+
+void Clients::SaveClientsToFile(const std::string& file)
+{
+    std::ofstream out(file,std::ios::out);
+    for(int i{0};i<=this->size()-1;++i)
+        {
+            out << GetClient(i);
+        }
+}
+
+Client& Clients::GetClient(unsigned int Index)
+{
+    assert(Index <= (ClientsList.size()-1) and Index >= 0 && "Out Of Index in GetClient()");
+    return ClientsList.at(Index);
+}
+
+void Clients::RemoveClient(unsigned int Index)
+{
+    assert(Index <= (ClientsList.size()-1) and Index >= 0 && "Out Of Index in RemoveClient()");
+    ClientsList.erase(ClientsList.begin()+Index);
+}
+
+Client& Clients::operator[](unsigned int Index)
+{
+    assert(Index <= (ClientsList.size()-1) and Index >= 0 && "Out Of Index in []");
+    return ClientsList.at(Index);
+}

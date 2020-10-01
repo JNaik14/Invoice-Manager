@@ -1,0 +1,62 @@
+/***************************************************************
+ * Name:      Invoice_ManagerApp.cpp
+ * Purpose:   Code for Application Class
+ * Author:    Jugal Naik (jugalnaik14@gmail.com)
+ * Created:   2020-09-16
+ * Copyright: Jugal Naik (jugal.tk)
+ * License:
+ **************************************************************/
+
+#include "wx_pch.h"
+#include "Invoice_ManagerApp.h"
+#include <fstream>
+#include "CompanyAddNew.h"
+
+//(*AppHeaders
+#include "Invoice_ManagerMain.h"
+#include <wx/image.h>
+//*)
+
+IMPLEMENT_APP(Invoice_ManagerApp);
+
+bool Invoice_ManagerApp::OnInit()
+{
+
+    //(*AppInitialize
+    bool wxsOK = true;
+    wxInitAllImageHandlers();
+    if ( wxsOK )
+    {
+        std::fstream file("Owner", std::ios::in | std::ios::app);
+        if(file.good())
+        {
+            wxMessageBox("Please Create YOUR Companys Profile");
+            CompanyAddNew Owner(this);
+            Owner.Name->SetValue("Your Companys Name..");
+            Owner.BillTo->SetValue("Proprietors Name..");
+            Owner.BillToStatic->SetLabel("Proprietor :");
+            Owner.GSTIN->SetValue("Companys GST Identification Number..");
+            Owner.Address->SetValue("Clients Address..");
+            Owner.City->SetValue("City..");
+            Owner.Country->SetValue("Country..");
+            if(Owner.ShowModal()==wxID_OK)
+            {
+                std::vector<wxString> vec;
+                vec.reserve(10);
+//            GetData(vec,Owner.Name);
+//            GetData(vec,Owner.BillTo);
+//            GetData(vec,Owner.GSTIN);
+//            GetData(vec,Owner.Address);
+//            GetData(vec,Owner.City);
+//            GetData(vec,Owner.Country);
+//            GetData(vec,Owner.Zip);
+            }
+        }
+        Invoice_ManagerFrame* Frame = new Invoice_ManagerFrame(0);
+        Frame->Show();
+        SetTopWindow(Frame);
+    }
+    //*)
+    return wxsOK;
+
+}

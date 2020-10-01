@@ -1,0 +1,645 @@
+/***************************************************************
+ * Name:      Invoice_ManagerMain.cpp
+ * Purpose:   Code for Application Frame
+ * Author:    Jugal Naik (jugalnaik14@gmail.com)
+ * Created:   2020-09-16
+ * Copyright: Jugal Naik (jugal.tk)
+ * License:
+ **************************************************************/
+
+#include "wx_pch.h"
+#include "Invoice_ManagerMain.h"
+#include "InvoiceAddNew.h"
+#include "ItemsAddNew.h"
+#include "CompanyAddNew.h"
+#include "DeleteRows.h"
+#include <wx/msgdlg.h>
+#include <fstream>
+#include "Clients.h"
+#include "misc.h"
+
+//(*InternalHeaders(Invoice_ManagerFrame)
+#include <wx/intl.h>
+#include <wx/string.h>
+//*)
+
+//helper functions
+enum wxbuildinfoformat
+{
+    short_f, long_f
+};
+
+wxString wxbuildinfo(wxbuildinfoformat format)
+{
+    wxString wxbuild(wxVERSION_STRING);
+
+    if (format == long_f )
+    {
+#if defined(__WXMSW__)
+        wxbuild << _T("-Windows");
+#elif defined(__UNIX__)
+        wxbuild << _T("-Linux");
+#endif
+
+#if wxUSE_UNICODE
+        wxbuild << _T("-Unicode build");
+#else
+        wxbuild << _T("-ANSI build");
+#endif // wxUSE_UNICODE
+    }
+
+    return wxbuild;
+}
+
+//(*IdInit(Invoice_ManagerFrame)
+const long Invoice_ManagerFrame::ID_GRID1 = wxNewId();
+const long Invoice_ManagerFrame::ID_BUTTON2 = wxNewId();
+const long Invoice_ManagerFrame::ID_BUTTON5 = wxNewId();
+const long Invoice_ManagerFrame::ID_GRID2 = wxNewId();
+const long Invoice_ManagerFrame::ID_BUTTON6 = wxNewId();
+const long Invoice_ManagerFrame::ID_BUTTON7 = wxNewId();
+const long Invoice_ManagerFrame::ID_GRID3 = wxNewId();
+const long Invoice_ManagerFrame::ID_BUTTON8 = wxNewId();
+const long Invoice_ManagerFrame::ID_BUTTON9 = wxNewId();
+const long Invoice_ManagerFrame::ID_BUTTON1 = wxNewId();
+const long Invoice_ManagerFrame::ID_BUTTON3 = wxNewId();
+const long Invoice_ManagerFrame::ID_BUTTON4 = wxNewId();
+const long Invoice_ManagerFrame::ID_PANEL1 = wxNewId();
+const long Invoice_ManagerFrame::ID_PANEL2 = wxNewId();
+const long Invoice_ManagerFrame::ID_PANEL3 = wxNewId();
+const long Invoice_ManagerFrame::ID_PANEL4 = wxNewId();
+const long Invoice_ManagerFrame::ID_NOTEBOOK1 = wxNewId();
+const long Invoice_ManagerFrame::ID_EditOwner = wxNewId();
+const long Invoice_ManagerFrame::ID_MENUITEM1 = wxNewId();
+const long Invoice_ManagerFrame::idMenuQuit = wxNewId();
+const long Invoice_ManagerFrame::ID_AddNewInvoice = wxNewId();
+const long Invoice_ManagerFrame::ID_MENUITEM2 = wxNewId();
+const long Invoice_ManagerFrame::ID_MENUITEM3 = wxNewId();
+const long Invoice_ManagerFrame::ID_AddNew = wxNewId();
+const long Invoice_ManagerFrame::ID_QuickInvoice = wxNewId();
+const long Invoice_ManagerFrame::ID_InvoiceList = wxNewId();
+const long Invoice_ManagerFrame::ID_AddSaleOrder = wxNewId();
+const long Invoice_ManagerFrame::ID_SaleOrderList = wxNewId();
+const long Invoice_ManagerFrame::ID_AddNewPurchase = wxNewId();
+const long Invoice_ManagerFrame::ID_AddPurchaseOrder = wxNewId();
+const long Invoice_ManagerFrame::ID_PurchaseRecorderList = wxNewId();
+const long Invoice_ManagerFrame::ID_PurchaseOrderList = wxNewId();
+const long Invoice_ManagerFrame::ID_MENUITEM11 = wxNewId();
+const long Invoice_ManagerFrame::ID_MENUITEM12 = wxNewId();
+const long Invoice_ManagerFrame::ID_MENUITEM13 = wxNewId();
+const long Invoice_ManagerFrame::ID_MENUITEM14 = wxNewId();
+const long Invoice_ManagerFrame::ID_MENUITEM15 = wxNewId();
+const long Invoice_ManagerFrame::idMenuAbout = wxNewId();
+const long Invoice_ManagerFrame::ID_STATUSBAR1 = wxNewId();
+const long Invoice_ManagerFrame::ID_MENUITEM4 = wxNewId();
+//*)
+
+BEGIN_EVENT_TABLE(Invoice_ManagerFrame,wxFrame)
+    //(*EventTable(Invoice_ManagerFrame)
+    //*)
+END_EVENT_TABLE()
+
+Invoice_ManagerFrame::Invoice_ManagerFrame(wxWindow* parent,wxWindowID id)
+{
+    //(*Initialize(Invoice_ManagerFrame)
+    wxBoxSizer* BoxSizer1;
+    wxBoxSizer* BoxSizer2;
+    wxBoxSizer* BoxSizer3;
+    wxBoxSizer* BoxSizer4;
+    wxBoxSizer* BoxSizer5;
+    wxBoxSizer* BoxSizer6;
+    wxBoxSizer* BoxSizer7;
+    wxMenu* Menu1;
+    wxMenu* Menu2;
+    wxMenuBar* MenuBar1;
+    wxMenuItem* MenuItem1;
+    wxMenuItem* MenuItem2;
+    wxStaticBoxSizer* StaticBoxSizer1;
+    wxStaticBoxSizer* StaticBoxSizer2;
+    wxStaticBoxSizer* StaticBoxSizer3;
+
+    Create(parent, wxID_ANY, _("Invoice Manager"), wxDefaultPosition, wxDefaultSize, wxDEFAULT_FRAME_STYLE, _T("wxID_ANY"));
+    SetClientSize(wxSize(800,600));
+    Notebook1 = new wxNotebook(this, ID_NOTEBOOK1, wxPoint(296,176), wxDefaultSize, 0, _T("ID_NOTEBOOK1"));
+    Panel1 = new wxPanel(Notebook1, ID_PANEL1, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL, _T("ID_PANEL1"));
+    BoxSizer1 = new wxBoxSizer(wxHORIZONTAL);
+    BoxSizer4 = new wxBoxSizer(wxVERTICAL);
+    StaticBoxSizer1 = new wxStaticBoxSizer(wxVERTICAL, Panel1, _("Invoices List"));
+    InvoicesList = new wxGrid(Panel1, ID_GRID1, wxDefaultPosition, wxDefaultSize, 0, _T("ID_GRID1"));
+    InvoicesList->CreateGrid(0,6);
+    InvoicesList->EnableEditing(false);
+    InvoicesList->EnableGridLines(false);
+    InvoicesList->SetColLabelValue(0, _("Owner"));
+    InvoicesList->SetColLabelValue(1, _("Client"));
+    InvoicesList->SetColLabelValue(2, _("Total"));
+    InvoicesList->SetColLabelValue(3, _("CGST Total"));
+    InvoicesList->SetColLabelValue(4, _("SGST Total"));
+    InvoicesList->SetColLabelValue(5, _("Grand Total"));
+    InvoicesList->SetDefaultCellFont( InvoicesList->GetFont() );
+    InvoicesList->SetDefaultCellTextColour( InvoicesList->GetForegroundColour() );
+    StaticBoxSizer1->Add(InvoicesList, 1, wxALL|wxEXPAND, 5);
+    BoxSizer5 = new wxBoxSizer(wxHORIZONTAL);
+    AddNewInvoice = new wxButton(Panel1, ID_BUTTON2, _("Add New Invoice"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON2"));
+    BoxSizer5->Add(AddNewInvoice, 1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    DeleteInvoice = new wxButton(Panel1, ID_BUTTON5, _("Delete"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON5"));
+    BoxSizer5->Add(DeleteInvoice, 0, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    StaticBoxSizer1->Add(BoxSizer5, 0, wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    BoxSizer4->Add(StaticBoxSizer1, 1, wxALL|wxEXPAND, 5);
+    StaticBoxSizer2 = new wxStaticBoxSizer(wxVERTICAL, Panel1, _("Items List"));
+    ItemsList = new wxGrid(Panel1, ID_GRID2, wxDefaultPosition, wxSize(571,149), 0, _T("ID_GRID2"));
+    ItemsList->CreateGrid(0,9);
+    ItemsList->EnableEditing(false);
+    ItemsList->EnableGridLines(false);
+    ItemsList->SetColLabelValue(0, _("Name"));
+    ItemsList->SetColLabelValue(1, _("Description"));
+    ItemsList->SetColLabelValue(2, _("Qunatity"));
+    ItemsList->SetColLabelValue(3, _("Unit Cost"));
+    ItemsList->SetColLabelValue(4, _("HSN"));
+    ItemsList->SetColLabelValue(5, _("SGST"));
+    ItemsList->SetColLabelValue(6, _("CGST"));
+    ItemsList->SetColLabelValue(7, _("Cess"));
+    ItemsList->SetColLabelValue(8, _("Total"));
+    ItemsList->SetDefaultCellFont( ItemsList->GetFont() );
+    ItemsList->SetDefaultCellTextColour( ItemsList->GetForegroundColour() );
+    StaticBoxSizer2->Add(ItemsList, 1, wxALL|wxEXPAND, 5);
+    BoxSizer6 = new wxBoxSizer(wxHORIZONTAL);
+    AddNewItems = new wxButton(Panel1, ID_BUTTON6, _("Add New Items"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON6"));
+    BoxSizer6->Add(AddNewItems, 1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    DeleteItems = new wxButton(Panel1, ID_BUTTON7, _("Delete"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON7"));
+    BoxSizer6->Add(DeleteItems, 0, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    StaticBoxSizer2->Add(BoxSizer6, 0, wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    BoxSizer4->Add(StaticBoxSizer2, 2, wxALL|wxEXPAND, 5);
+    StaticBoxSizer3 = new wxStaticBoxSizer(wxVERTICAL, Panel1, _("Clients List"));
+    ClientsList = new wxGrid(Panel1, ID_GRID3, wxDefaultPosition, wxDefaultSize, 0, _T("ID_GRID3"));
+    ClientsList->CreateGrid(0,7);
+    ClientsList->EnableEditing(false);
+    ClientsList->EnableGridLines(false);
+    ClientsList->SetColLabelValue(0, _("Name"));
+    ClientsList->SetColLabelValue(1, _("Bill To"));
+    ClientsList->SetColLabelValue(2, _("GSTIN"));
+    ClientsList->SetColLabelValue(3, _("Address"));
+    ClientsList->SetColLabelValue(4, _("City"));
+    ClientsList->SetColLabelValue(5, _("Country"));
+    ClientsList->SetColLabelValue(6, _("Zip"));
+    ClientsList->SetDefaultCellFont( ClientsList->GetFont() );
+    ClientsList->SetDefaultCellTextColour( ClientsList->GetForegroundColour() );
+    StaticBoxSizer3->Add(ClientsList, 1, wxALL|wxEXPAND, 5);
+    BoxSizer7 = new wxBoxSizer(wxHORIZONTAL);
+    AddNewClient = new wxButton(Panel1, ID_BUTTON8, _("Add New Client"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON8"));
+    BoxSizer7->Add(AddNewClient, 1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    DeleteClient = new wxButton(Panel1, ID_BUTTON9, _("Delete"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON9"));
+    BoxSizer7->Add(DeleteClient, 0, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    StaticBoxSizer3->Add(BoxSizer7, 0, wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    BoxSizer4->Add(StaticBoxSizer3, 1, wxALL|wxEXPAND, 5);
+    BoxSizer1->Add(BoxSizer4, 1, wxEXPAND, 5);
+    BoxSizer2 = new wxBoxSizer(wxHORIZONTAL);
+    BoxSizer3 = new wxBoxSizer(wxVERTICAL);
+    Button1 = new wxButton(Panel1, ID_BUTTON1, _("Add New"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON1"));
+    BoxSizer3->Add(Button1, 1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    Button3 = new wxButton(Panel1, ID_BUTTON3, _("Quick Invoice"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON3"));
+    BoxSizer3->Add(Button3, 1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    AddSalesOrder = new wxButton(Panel1, ID_BUTTON4, _("Add Sales Order"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON4"));
+    BoxSizer3->Add(AddSalesOrder, 1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    BoxSizer2->Add(BoxSizer3, 1, wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    BoxSizer1->Add(BoxSizer2, 0, wxEXPAND, 5);
+    Panel1->SetSizer(BoxSizer1);
+    BoxSizer1->Fit(Panel1);
+    BoxSizer1->SetSizeHints(Panel1);
+    Panel2 = new wxPanel(Notebook1, ID_PANEL2, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL, _T("ID_PANEL2"));
+    Panel3 = new wxPanel(Notebook1, ID_PANEL3, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL, _T("ID_PANEL3"));
+    Panel4 = new wxPanel(Notebook1, ID_PANEL4, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL, _T("ID_PANEL4"));
+    Notebook1->AddPage(Panel1, _("Invoice"), false);
+    Notebook1->AddPage(Panel2, _("Purchase"), false);
+    Notebook1->AddPage(Panel3, _("Estimate"), false);
+    Notebook1->AddPage(Panel4, _("Payments"), false);
+    MenuBar1 = new wxMenuBar();
+    Menu1 = new wxMenu();
+    EditOwner = new wxMenuItem(Menu1, ID_EditOwner, _("Edit Owner"), wxEmptyString, wxITEM_NORMAL);
+    Menu1->Append(EditOwner);
+    MenuItem3 = new wxMenuItem(Menu1, ID_MENUITEM1, _("Import/Export Data"), wxEmptyString, wxITEM_NORMAL);
+    Menu1->Append(MenuItem3);
+    MenuItem1 = new wxMenuItem(Menu1, idMenuQuit, _("Quit\tAlt-F4"), _("Quit the application"), wxITEM_NORMAL);
+    Menu1->Append(MenuItem1);
+    MenuBar1->Append(Menu1, _("File"));
+    Menu3 = new wxMenu();
+    MenuItem4 = new wxMenu();
+    MenuItem18 = new wxMenuItem(MenuItem4, ID_AddNewInvoice, _("Invoice"), wxEmptyString, wxITEM_NORMAL);
+    MenuItem4->Append(MenuItem18);
+    MenuItem19 = new wxMenuItem(MenuItem4, ID_MENUITEM2, _("Client"), wxEmptyString, wxITEM_NORMAL);
+    MenuItem4->Append(MenuItem19);
+    MenuItem20 = new wxMenuItem(MenuItem4, ID_MENUITEM3, _("Item(s)"), wxEmptyString, wxITEM_NORMAL);
+    MenuItem4->Append(MenuItem20);
+    Menu3->Append(ID_AddNew, _("Add New"), MenuItem4, _("Add a New Invoice to the List."));
+    MenuItem5 = new wxMenuItem(Menu3, ID_QuickInvoice, _("Quick Invoice"), wxEmptyString, wxITEM_NORMAL);
+    Menu3->Append(MenuItem5);
+    MenuItem6 = new wxMenuItem(Menu3, ID_InvoiceList, _("Invoice List"), wxEmptyString, wxITEM_NORMAL);
+    Menu3->Append(MenuItem6);
+    MenuItem7 = new wxMenuItem(Menu3, ID_AddSaleOrder, _("Add Sale Order"), wxEmptyString, wxITEM_NORMAL);
+    Menu3->Append(MenuItem7);
+    MenuItem8 = new wxMenuItem(Menu3, ID_SaleOrderList, _("Sale Order List"), wxEmptyString, wxITEM_NORMAL);
+    Menu3->Append(MenuItem8);
+    MenuBar1->Append(Menu3, _("Invoices"));
+    Menu4 = new wxMenu();
+    MenuItem9 = new wxMenuItem(Menu4, ID_AddNewPurchase, _("Add New Purchase Order"), wxEmptyString, wxITEM_NORMAL);
+    Menu4->Append(MenuItem9);
+    MenuItem10 = new wxMenuItem(Menu4, ID_AddPurchaseOrder, _("Add Purchase Order"), wxEmptyString, wxITEM_NORMAL);
+    Menu4->Append(MenuItem10);
+    MenuItem11 = new wxMenuItem(Menu4, ID_PurchaseRecorderList, _("Purchase Record List"), wxEmptyString, wxITEM_NORMAL);
+    Menu4->Append(MenuItem11);
+    MenuItem12 = new wxMenuItem(Menu4, ID_PurchaseOrderList, _("Purchase Order List"), wxEmptyString, wxITEM_NORMAL);
+    Menu4->Append(MenuItem12);
+    MenuBar1->Append(Menu4, _("Purchase"));
+    Menu5 = new wxMenu();
+    MenuItem13 = new wxMenuItem(Menu5, ID_MENUITEM11, _("Add New"), wxEmptyString, wxITEM_NORMAL);
+    Menu5->Append(MenuItem13);
+    MenuItem14 = new wxMenuItem(Menu5, ID_MENUITEM12, _("Quick Estimate"), wxEmptyString, wxITEM_NORMAL);
+    Menu5->Append(MenuItem14);
+    MenuItem15 = new wxMenuItem(Menu5, ID_MENUITEM13, _("Estimate List"), wxEmptyString, wxITEM_NORMAL);
+    Menu5->Append(MenuItem15);
+    MenuBar1->Append(Menu5, _("Estimate"));
+    Menu6 = new wxMenu();
+    MenuItem16 = new wxMenuItem(Menu6, ID_MENUITEM14, _("Add New"), wxEmptyString, wxITEM_NORMAL);
+    Menu6->Append(MenuItem16);
+    MenuItem17 = new wxMenuItem(Menu6, ID_MENUITEM15, _("Payment List"), wxEmptyString, wxITEM_NORMAL);
+    Menu6->Append(MenuItem17);
+    MenuBar1->Append(Menu6, _("Payments"));
+    Menu2 = new wxMenu();
+    MenuItem2 = new wxMenuItem(Menu2, idMenuAbout, _("About\tF1"), _("Show info about this application"), wxITEM_NORMAL);
+    Menu2->Append(MenuItem2);
+    MenuBar1->Append(Menu2, _("Help"));
+    SetMenuBar(MenuBar1);
+    StatusBar1 = new wxStatusBar(this, ID_STATUSBAR1, 0, _T("ID_STATUSBAR1"));
+    int __wxStatusBarWidths_1[1] = { -1 };
+    int __wxStatusBarStyles_1[1] = { wxSB_FLAT };
+    StatusBar1->SetFieldsCount(1,__wxStatusBarWidths_1);
+    StatusBar1->SetStatusStyles(1,__wxStatusBarStyles_1);
+    SetStatusBar(StatusBar1);
+    DeleteRow = new wxMenuItem((&Menu7), ID_MENUITEM4, _("Delete"), wxEmptyString, wxITEM_NORMAL);
+    Menu7.Append(DeleteRow);
+    Center();
+
+    Connect(ID_BUTTON2,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&Invoice_ManagerFrame::OnAddNewInvoiceClick);
+    Connect(ID_BUTTON5,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&Invoice_ManagerFrame::OnDeleteInvoiceClick);
+    Connect(ID_BUTTON6,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&Invoice_ManagerFrame::OnAddNewItemsClick);
+    Connect(ID_BUTTON7,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&Invoice_ManagerFrame::OnDeleteItemsClick);
+    Connect(ID_BUTTON8,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&Invoice_ManagerFrame::OnAddNewClientClick);
+    Connect(ID_BUTTON9,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&Invoice_ManagerFrame::OnDeleteClientClick);
+    Connect(ID_BUTTON1,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&Invoice_ManagerFrame::OnAddNewInvoiceSelected);
+    Connect(ID_BUTTON4,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&Invoice_ManagerFrame::OnAddSalesOrderClick);
+    Connect(ID_EditOwner,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&Invoice_ManagerFrame::OnEditOwnerSelected);
+    Connect(idMenuQuit,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&Invoice_ManagerFrame::OnQuit);
+    Connect(ID_AddNewInvoice,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&Invoice_ManagerFrame::OnAddNewInvoiceClick);
+    Connect(ID_AddNew,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&Invoice_ManagerFrame::OnAddNewInvoiceSelected);
+    Connect(idMenuAbout,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&Invoice_ManagerFrame::OnAbout);
+    //*)
+
+
+    if(!wxFileName::IsFileReadable("Owner"))
+    {
+        wxMessageBox(wxT("Please Create YOUR Companys Profile"),_("Before We Proceed.."));
+        CompanyAddNew Own(this);
+        Own.Name->SetValue("Your Companys Name..");
+        Own.BillTo->SetValue("Proprietors Name..");
+        Own.BillToStatic->SetLabel("Proprietor :");
+        Own.GSTIN->SetValue("Companys GST Identification Number..");
+        Own.Address->SetValue("Clients Address..");
+        Own.City->SetValue("City..");
+        Own.Country->SetValue("Country..");
+        if(Own.ShowModal()==wxID_OK)
+        {
+            std::vector<std::string> vec;
+            std::vector<wxTextCtrl*> txt{Own.Name,Own.BillTo,Own.GSTIN,Own.Address,Own.City,Own.Country};
+            vec.reserve(10);
+            txt.reserve(10);
+            for (int i{}; i<=5; ++i)
+            {
+                GetData(vec,txt.at(i));
+            }
+            GetData(vec,Own.Zip);
+            this->SetTitle("Invoice Manager | " + vec[0]);
+            Owner own;
+            own.SetData(vec.at(0),vec.at(1),vec.at(2),vec.at(3),vec.at(4),vec.at(5),vec.at(6));
+            std::cerr << own;
+            std::fstream file("Owner", std::ios::out);
+            file << own;
+            file.close();
+        }
+        else
+        {
+            Close();
+        }
+    }
+    else
+    {
+        std::fstream file("Owner", std::ios::in);
+        Owner own;
+        file >> own;
+        this->SetTitle("Invoice Manager | " + own.GetName());
+    }
+    StartUp();
+}
+
+void Invoice_ManagerFrame::StartUp()
+{
+    if(wxFileName::IsFileReadable("Items"))
+    {
+        Items I;
+        I.AddItemsFromFile("Items");
+        for(int i{0}; i<=I.size()-1; ++i)
+        {
+            std::cerr << I[i];
+            ItemsList->InsertRows(i);
+            ItemsList->SetCellValue(i,0,I[i].GetName());
+            ItemsList->SetCellValue(i,1,I[i].GetDescription());
+            ItemsList->SetCellValue(i,2,I[i].GetQuantity());
+            ItemsList->SetCellValue(i,3,I[i].GetUnitCost());
+            ItemsList->SetCellValue(i,4,I[i].GetHSN());
+            ItemsList->SetCellValue(i,5,I[i].GetCGST(true));
+            ItemsList->SetCellValue(i,6,I[i].GetSGST(true));
+            ItemsList->SetCellValue(i,8,I[i].GetTotal());
+        }
+    }
+
+    if(wxFileName::IsFileReadable("Clients"))
+    {
+        Clients C;
+        C.AddClientsFromFile("Clients");
+        for(int i{0}; i<=C.size()-1; ++i)
+        {
+            std::cerr << C[i];
+            ClientsList->InsertRows(i);
+            ClientsList->SetCellValue(i,0,C.GetClient(i).GetName());
+            ClientsList->SetCellValue(i,1,C.GetClient(i).GetExtra());
+            ClientsList->SetCellValue(i,2,C.GetClient(i).GetGSTIN());
+            ClientsList->SetCellValue(i,3,C.GetClient(i).GetAddress());
+            ClientsList->SetCellValue(i,4,C.GetClient(i).GetCity());
+            ClientsList->SetCellValue(i,5,C.GetClient(i).GetCountry());
+            ClientsList->SetCellValue(i,6,C.GetClient(i).GetzipCode());
+        }
+    }
+}
+Invoice_ManagerFrame::~Invoice_ManagerFrame()
+{
+    //(*Destroy(Invoice_ManagerFrame)
+    //*)
+}
+
+void StillNotMadeMesssage()
+{
+    wxMessageBox(wxT("*This Part is Still Under Development*"),_("Oops..."));
+}
+
+double GDD(const wxString& s)
+{
+    double tmp;
+    s.ToDouble(&tmp);
+    return tmp;
+}
+
+void Invoice_ManagerFrame::OnQuit(wxCommandEvent& event)
+{
+    Close();
+}
+
+void Invoice_ManagerFrame::OnAbout(wxCommandEvent& event)
+{
+    wxString msg = wxT("Developed by Jugal Naik");
+    wxMessageBox(msg, _("About.."));
+}
+
+
+void Invoice_ManagerFrame::OnAddNewInvoiceSelected(wxCommandEvent& event)
+{
+    std::cerr << "Invoice - Add New Called\n";
+    InvoiceAddNew Add(this);
+    if(Add.ShowModal()==wxID_OK)
+    {
+    }
+    ItemsList->DeleteRows(0,ItemsList->GetRows());
+    ClientsList->DeleteRows(0,ClientsList->GetRows());
+    StartUp();
+}
+
+void Invoice_ManagerFrame::OnAddSalesOrderClick(wxCommandEvent& event)
+{
+    StillNotMadeMesssage();
+}
+
+
+void Invoice_ManagerFrame::OnAddNewInvoiceClick(wxCommandEvent& event)
+{
+    InvoicesList->InsertRows(InvoicesList->GetRows()+1);
+}
+
+void Invoice_ManagerFrame::OnAddNewItemsClick(wxCommandEvent& event)
+{
+    std::vector<wxString> vec;
+    ItemsAddNew Items(this);
+    if(Items.ShowModal()==wxID_OK)
+    {
+        int row{ItemsList->GetRows()};
+        ItemsList->InsertRows(row+1);
+
+        GetData(vec,Items.Name);
+        GetData(vec,Items.Description);
+        GetData(vec,Items.Quantity);
+        GetData(vec,Items.UnitCost);
+        GetData(vec,Items.HSN);
+        GetData(vec,Items.CGST);
+        GetData(vec,Items.SGST);
+        GetData(vec,Items.Cess);
+
+
+        std::fstream file("Items",std::ios::app);
+        Item I;
+        I.SetData(vec[0].ToStdString(),vec[1].ToStdString(),vec[2].ToStdString(),vec[3].ToStdString(),vec[4].ToStdString(),vec[5].ToStdString(),vec[6].ToStdString(),vec[7].ToStdString());
+        vec.emplace_back(I.GetTotal());
+        file << I;
+        file.close();
+
+        for(int i{0}; i<=ItemsList->GetCols()-1; ++i)
+        {
+            ItemsList->SetCellValue(row,i,vec.at(i));
+        }
+    }
+}
+
+void Invoice_ManagerFrame::OnAddNewClientClick(wxCommandEvent& event)
+{
+    CompanyAddNew Clientt(this);
+    Clientt.Name->SetValue("Client's Company Name..");
+    Clientt.BillTo->SetValue("Bill To..");
+    Clientt.GSTIN->SetValue("Companys GST Identification Number..");
+    Clientt.Address->SetValue("Clients Address..");
+    Clientt.City->SetValue("City..");
+    Clientt.Country->SetValue("Country..");
+    if(Clientt.ShowModal()==wxID_OK)
+    {
+        std::vector<wxString> vec;
+        vec.reserve(10);
+        int row{ClientsList->GetRows()};
+        ClientsList->InsertRows(row+1);
+
+        GetData(vec,Clientt.Name);
+        GetData(vec,Clientt.BillTo);
+        GetData(vec,Clientt.GSTIN);
+        GetData(vec,Clientt.Address);
+        GetData(vec,Clientt.City);
+        GetData(vec,Clientt.Country);
+        GetData(vec,Clientt.Zip);
+
+        std::fstream file("Clients",std::ios::app);
+        Client C;
+        C.SetData(vec[0].ToStdString(),vec[1].ToStdString(),vec[2].ToStdString(),vec[3].ToStdString(),vec[4].ToStdString(),vec[5].ToStdString(),vec[6].ToStdString());
+        file << C;
+        file.close();
+
+        for(int i{0}; i<=ClientsList->GetCols()-1; ++i)
+        {
+            ClientsList->SetCellValue(row,i,vec.at(i));
+        }
+    }
+}
+
+
+//void Invoice_ManagerFrame::OnClearInvoiceClick(wxCommandEvent& event)
+//{
+//    if(InvoicesList->GetRows()!=0)
+//    {
+//        InvoicesList->DeleteRows(InvoicesList->GetRows()-1);
+//    }
+//}
+//
+//void Invoice_ManagerFrame::OnClearItemsClick(wxCommandEvent& event)
+//{
+//    if(ItemsList->GetRows()!=0)
+//    {
+//        ItemsList->DeleteRows(ItemsList->GetRows()-1);
+//    }
+//    Items I;
+//    I.AddItemsFromFile("Items");
+//    I.RemoveItem(ItemsList->GetRows());
+////    for (int r{0}; r<=ItemsList->GetRows()-1; ++r)
+////    {
+////        std::vector<wxString> vec;
+////        for (int c{0}; c<=ItemsList->GetCols()-1; ++c)
+////        {
+////            vec.emplace_back(ItemsList->GetCellValue(r,c));
+////        }
+////        I.AddItem(vec[0].ToStdString(),vec[1].ToStdString(),vec[2].ToStdString(),vec[3].ToStdString(),vec[4].ToStdString(),vec[5].ToStdString(),vec[6].ToStdString(),vec[7].ToStdString());
+////    }
+//    I.SaveItemsToFile("Items");
+//}
+//
+//void Invoice_ManagerFrame::OnClearClientClick(wxCommandEvent& event)
+//{
+//    if(ClientsList->GetRows()!=0)
+//    {
+//        ClientsList->DeleteRows(ClientsList->GetRows()-1);
+//    }
+//    Clients C;
+//    C.AddClientsFromFile("Clients");
+//    C.RemoveClient(ClientsList->GetRows());
+////    for (int r{0}; r<=ClientsList->GetRows()-1; ++r)
+////    {
+////        std::vector<wxString> vec;
+////        for (int c{0}; c<=ClientsList->GetCols()-1; ++c)
+////        {
+////            vec.emplace_back(ClientsList->GetCellValue(r,c));
+////        }
+////        C.AddClient(vec[0].ToStdString(),vec[1].ToStdString(),vec[2].ToStdString(),vec[3].ToStdString(),vec[4].ToStdString(),vec[5].ToStdString(),vec[6].ToStdString());
+////    }
+//    C.SaveClientsToFile("Clients");
+//}
+
+void Invoice_ManagerFrame::OnEditOwnerSelected(wxCommandEvent& event)
+{
+    std::fstream file("Owner", std::ios::in);
+    Owner own;
+    file >> own;
+    file.close();
+    std::cerr << own;
+    CompanyAddNew Own(this);
+    Own.SetTitle("Edit Owner : " + own.GetName());
+    Own.Name->SetValue(own.GetName());
+    Own.BillTo->SetValue(own.GetExtra());
+    Own.GSTIN->SetValue(own.GetGSTIN());
+    Own.Address->SetValue(own.GetAddress());
+    Own.City->SetValue(own.GetCity());
+    Own.Country->SetValue(own.GetCountry());
+    Own.Zip->SetValue(own.GetzipCode());
+    if(Own.ShowModal()==wxID_OK)
+    {
+        std::vector<std::string> vec;
+        vec.reserve(7);
+
+        GetData(vec,Own.Name);
+        GetData(vec,Own.BillTo);
+        GetData(vec,Own.GSTIN);
+        GetData(vec,Own.Address);
+        GetData(vec,Own.City);
+        GetData(vec,Own.Country);
+        GetData(vec,Own.Zip);
+
+        own.SetData(vec[0],vec[1],vec[2],vec[3],vec[4],vec[5],vec[6]);
+        std::fstream file("Owner", std::ios::out);
+        file << own;
+        file.close();
+    }
+}
+
+
+void Invoice_ManagerFrame::OnDeleteClientClick(wxCommandEvent& event)
+{
+    DeleteRows del(this);
+    del.From->SetValue(std::to_string(ClientsList->GetRows()));
+    if(del.ShowModal()==wxID_OK)
+    {
+        int from{std::stoi(del.From->GetValue().ToStdString())};
+        ClientsList->DeleteRows(from-1,(from-std::stoi(del.To->GetValue().ToStdString())));
+    }
+    Clients C;
+    for (int r{0}; r<=ClientsList->GetRows()-1; ++r)
+    {
+        std::vector<wxString> vec;
+        for (int c{0}; c<=ClientsList->GetCols()-1; ++c)
+        {
+            vec.emplace_back(ClientsList->GetCellValue(r,c));
+        }
+        C.AddClient(vec[0].ToStdString(),vec[1].ToStdString(),vec[2].ToStdString(),vec[3].ToStdString(),vec[4].ToStdString(),vec[5].ToStdString(),vec[6].ToStdString());
+    }
+    C.SaveClientsToFile("Clients");
+}
+
+void Invoice_ManagerFrame::OnDeleteItemsClick(wxCommandEvent& event)
+{
+    DeleteRows del(this);
+    del.From->SetValue(std::to_string(ItemsList->GetRows()));
+    if(del.ShowModal()==wxID_OK)
+    {
+        int from{std::stoi(del.From->GetValue().ToStdString())};
+        ItemsList->DeleteRows(from-1,(from-std::stoi(del.To->GetValue().ToStdString())));
+    }
+    Items I;
+    for (int r{0}; r<=ItemsList->GetRows()-1; ++r)
+    {
+        std::vector<wxString> vec;
+        for (int c{0}; c<=ItemsList->GetCols()-1; ++c)
+        {
+            vec.emplace_back(ItemsList->GetCellValue(r,c));
+        }
+        I.AddItem(vec[0].ToStdString(),vec[1].ToStdString(),vec[2].ToStdString(),vec[3].ToStdString(),vec[4].ToStdString(),vec[5].ToStdString(),vec[6].ToStdString(),vec[7].ToStdString());
+    }
+    I.SaveItemsToFile("Items");
+}
+
+void Invoice_ManagerFrame::OnDeleteInvoiceClick(wxCommandEvent& event)
+{
+    DeleteRows del(this);
+    if(del.ShowModal()==wxID_OK)
+    {
+        int from{std::stoi(del.From->GetValue().ToStdString())};
+        InvoicesList->DeleteRows(from-1,(from-std::stoi(del.To->GetValue().ToStdString())));
+    }
+}
+

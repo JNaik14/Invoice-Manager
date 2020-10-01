@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="Invoice Manager" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/Invoice Manager" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Option projectLinkerOptionsRelation="2" />
+				<Compiler>
+					<Add option="-Wfatal-errors" />
+					<Add option="-Og" />
+					<Add option="-g" />
+					<Add directory="C:/libs/wxWidgets-3.0.5/lib/gcc_lib/mswu" />
+					<Add directory="include" />
+					<Add directory="./" />
+				</Compiler>
+				<ResourceCompiler>
+					<Add directory="C:/libs/wxWidgets-3.0.5/lib/gcc_lib/mswu" />
+				</ResourceCompiler>
+				<Linker>
+					<Add library="bin/Debug/libwxpdfdoc-0.a" />
+					<Add library="libwxmsw30u.a" />
+					<Add library="libwxpng.a" />
+					<Add library="libwxjpeg.a" />
+					<Add library="libwxtiff.a" />
+					<Add library="libwxzlib.a" />
+					<Add library="C:/libs/wxWidgets-3.0.5/lib/gcc_lib/libwxexpat.a" />
+					<Add library="C:/libs/wxWidgets-3.0.5/lib/gcc_lib/libwxjpeg.a" />
+					<Add library="C:/libs/wxWidgets-3.0.5/lib/gcc_lib/libwxmsw30u.a" />
+					<Add library="C:/libs/wxWidgets-3.0.5/lib/gcc_lib/libwxmsw30u_gl.a" />
+					<Add library="C:/libs/wxWidgets-3.0.5/lib/gcc_lib/libwxpng.a" />
+					<Add library="C:/libs/wxWidgets-3.0.5/lib/gcc_lib/libwxregexu.a" />
+					<Add library="C:/libs/wxWidgets-3.0.5/lib/gcc_lib/libwxscintilla.a" />
+					<Add library="C:/libs/wxWidgets-3.0.5/lib/gcc_lib/libwxtiff.a" />
+					<Add library="C:/libs/wxWidgets-3.0.5/lib/gcc_lib/libwxzlib.a" />
+					<Add library="libkernel32.a" />
+					<Add library="libuser32.a" />
+					<Add library="libgdi32.a" />
+					<Add library="libwinspool.a" />
+					<Add library="libcomdlg32.a" />
+					<Add library="libadvapi32.a" />
+					<Add library="libshell32.a" />
+					<Add library="libole32.a" />
+					<Add library="liboleaut32.a" />
+					<Add library="libuuid.a" />
+					<Add library="libcomctl32.a" />
+					<Add library="libwsock32.a" />
+					<Add library="libodbc32.a" />
+					<Add directory="C:/libs/wxWidgets-3.0.5/lib/gcc_lib" />
+					<Add directory="bin/Debug" />
+				</Linker>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/Invoice Manager" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="0" />
+				<Option compiler="gcc" />
+				<Option projectLinkerOptionsRelation="2" />
+				<Compiler>
+					<Add option="-fomit-frame-pointer" />
+					<Add option="-fexpensive-optimizations" />
+					<Add option="-Os" />
+					<Add option="-w" />
+					<Add directory="C:/libs/wxWidgets-3.0.5/lib/gcc_lib/mswu" />
+					<Add directory="include" />
+					<Add directory="./" />
+				</Compiler>
+				<ResourceCompiler>
+					<Add directory="C:/libs/wxWidgets-3.0.5/lib/gcc_lib/mswu" />
+				</ResourceCompiler>
+				<Linker>
+					<Add option="-s" />
+					<Add library="bin/Release/libwxpdfdoc-0.a" />
+					<Add library="libwxmsw30u.a" />
+					<Add library="libwxpng.a" />
+					<Add library="libwxjpeg.a" />
+					<Add library="libwxtiff.a" />
+					<Add library="libwxzlib.a" />
+					<Add library="C:/libs/wxWidgets-3.0.5/lib/gcc_lib/libwxexpat.a" />
+					<Add library="C:/libs/wxWidgets-3.0.5/lib/gcc_lib/libwxjpeg.a" />
+					<Add library="C:/libs/wxWidgets-3.0.5/lib/gcc_lib/libwxmsw30u.a" />
+					<Add library="C:/libs/wxWidgets-3.0.5/lib/gcc_lib/libwxmsw30u_gl.a" />
+					<Add library="C:/libs/wxWidgets-3.0.5/lib/gcc_lib/libwxpng.a" />
+					<Add library="C:/libs/wxWidgets-3.0.5/lib/gcc_lib/libwxregexu.a" />
+					<Add library="C:/libs/wxWidgets-3.0.5/lib/gcc_lib/libwxscintilla.a" />
+					<Add library="C:/libs/wxWidgets-3.0.5/lib/gcc_lib/libwxtiff.a" />
+					<Add library="C:/libs/wxWidgets-3.0.5/lib/gcc_lib/libwxzlib.a" />
+					<Add library="libkernel32.a" />
+					<Add library="libuser32.a" />
+					<Add library="libgdi32.a" />
+					<Add library="libwinspool.a" />
+					<Add library="libcomdlg32.a" />
+					<Add library="libadvapi32.a" />
+					<Add library="libshell32.a" />
+					<Add library="libole32.a" />
+					<Add library="liboleaut32.a" />
+					<Add library="libuuid.a" />
+					<Add library="libcomctl32.a" />
+					<Add library="libwsock32.a" />
+					<Add library="libodbc32.a" />
+					<Add directory="C:/libs/wxWidgets-3.0.5/lib/gcc_lib" />
+					<Add directory="bin/Release" />
+				</Linker>
+			</Target>
+			<Target title="DRelease">
+				<Option output="bin/DRelease/Invoice Manager" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/DRelease/" />
+				<Option type="0" />
+				<Option compiler="gcc" />
+				<Option projectLinkerOptionsRelation="2" />
+				<Compiler>
+					<Add option="-fomit-frame-pointer" />
+					<Add option="-fexpensive-optimizations" />
+					<Add option="-Os" />
+					<Add option="-w" />
+					<Add directory="C:/libs/wxWidgets-3.0.5/lib/gcc_dll/mswu" />
+					<Add directory="include" />
+					<Add directory="./" />
+				</Compiler>
+				<ResourceCompiler>
+					<Add directory="C:/libs/wxWidgets-3.0.5/lib/gcc_dll/mswu" />
+				</ResourceCompiler>
+				<Linker>
+					<Add option="-s" />
+					<Add library="bin/Release/libwxpdfdoc-0.a" />
+					<Add library="C:/libs/wxWidgets-3.0.5/lib/gcc_dll/libwxmsw30u.a" />
+					<Add directory="C:/libs/wxWidgets-3.0.5/lib/gcc_dll" />
+					<Add directory="bin/Release" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wfatal-errors" />
+			<Add option="-std=c++17" />
+			<Add option="-pipe" />
+			<Add option="-mthreads" />
+			<Add option="-Winvalid-pch" />
+			<Add option="-include wx_pch.h" />
+			<Add option="-D__GNUWIN32__" />
+			<Add option="-D__WXMSW__" />
+			<Add option="-DwxUSE_UNICODE" />
+			<Add option="-DWX_PRECOMP" />
+			<Add directory="C:/libs/wxWidgets-3.0.5/include" />
+		</Compiler>
+		<ResourceCompiler>
+			<Add directory="C:/libs/wxWidgets-3.0.5/include" />
+			<Add directory="include" />
+		</ResourceCompiler>
+		<Linker>
+			<Add option="-mthreads" />
+		</Linker>
+		<Unit filename="CompanyAddNew.cpp" />
+		<Unit filename="CompanyAddNew.h" />
+		<Unit filename="DeleteRows.cpp" />
+		<Unit filename="DeleteRows.h" />
+		<Unit filename="InvoiceAddNew.cpp" />
+		<Unit filename="InvoiceAddNew.h" />
+		<Unit filename="Invoice_ManagerApp.cpp" />
+		<Unit filename="Invoice_ManagerApp.h" />
+		<Unit filename="Invoice_ManagerMain.cpp" />
+		<Unit filename="Invoice_ManagerMain.h" />
+		<Unit filename="ItemsAddNew.cpp" />
+		<Unit filename="ItemsAddNew.h" />
+		<Unit filename="include/Client.h" />
+		<Unit filename="include/Clients.h" />
+		<Unit filename="include/Company.h" />
+		<Unit filename="include/Invoice.h" />
+		<Unit filename="include/Item.h" />
+		<Unit filename="include/Items.h" />
+		<Unit filename="include/Owner.h" />
+		<Unit filename="misc.cpp" />
+		<Unit filename="misc.h" />
+		<Unit filename="resource.rc">
+			<Option compilerVar="WINDRES" />
+		</Unit>
+		<Unit filename="src/Client.cpp" />
+		<Unit filename="src/Clients.cpp" />
+		<Unit filename="src/Company.cpp" />
+		<Unit filename="src/Invoice.cpp" />
+		<Unit filename="src/Item.cpp" />
+		<Unit filename="src/Items.cpp" />
+		<Unit filename="src/Owner.cpp" />
+		<Unit filename="wx_pch.h">
+			<Option compile="1" />
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="wxsmith/CompanyAddNew.wxs" />
+		<Unit filename="wxsmith/DeleteRows.wxs" />
+		<Unit filename="wxsmith/InvoiceAddNew.wxs" />
+		<Unit filename="wxsmith/Invoice_Managerframe.wxs" />
+		<Unit filename="wxsmith/ItemsAddNew.wxs" />
+		<Extensions>
+			<lib_finder disable_auto="1" />
+			<wxsmith version="1">
+				<gui name="wxWidgets" src="Invoice_ManagerApp.cpp" main="Invoice_ManagerFrame" init_handlers="necessary" language="CPP" />
+				<resources>
+					<wxFrame wxs="wxsmith/Invoice_Managerframe.wxs" src="Invoice_ManagerMain.cpp" hdr="Invoice_ManagerMain.h" fwddecl="0" i18n="1" name="Invoice_ManagerFrame" language="CPP" />
+					<wxDialog wxs="wxsmith/ItemsAddNew.wxs" src="ItemsAddNew.cpp" hdr="ItemsAddNew.h" fwddecl="0" i18n="1" name="ItemsAddNew" language="CPP" />
+					<wxDialog wxs="wxsmith/CompanyAddNew.wxs" src="CompanyAddNew.cpp" hdr="CompanyAddNew.h" fwddecl="0" i18n="1" name="CompanyAddNew" language="CPP" />
+					<wxDialog wxs="wxsmith/DeleteRows.wxs" src="DeleteRows.cpp" hdr="DeleteRows.h" fwddecl="0" i18n="1" name="DeleteRows" language="CPP" />
+					<wxDialog wxs="wxsmith/InvoiceAddNew.wxs" src="InvoiceAddNew.cpp" hdr="InvoiceAddNew.h" fwddecl="0" i18n="1" name="InvoiceAddNew" language="CPP" />
+				</resources>
+			</wxsmith>
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

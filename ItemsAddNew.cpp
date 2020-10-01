@@ -1,0 +1,153 @@
+#include "wx_pch.h"
+#include "ItemsAddNew.h"
+
+#ifndef WX_PRECOMP
+//(*InternalHeadersPCH(ItemsAddNew)
+#include <wx/intl.h>
+#include <wx/string.h>
+//*)
+#endif
+//(*InternalHeaders(ItemsAddNew)
+//*)
+
+//(*IdInit(ItemsAddNew)
+const long ItemsAddNew::ID_STATICTEXT1 = wxNewId();
+const long ItemsAddNew::ID_TEXTCTRL1 = wxNewId();
+const long ItemsAddNew::ID_STATICTEXT2 = wxNewId();
+const long ItemsAddNew::ID_TEXTCTRL2 = wxNewId();
+const long ItemsAddNew::ID_STATICTEXT3 = wxNewId();
+const long ItemsAddNew::ID_SPINCTRL4 = wxNewId();
+const long ItemsAddNew::ID_STATICTEXT4 = wxNewId();
+const long ItemsAddNew::ID_SPINCTRLDOUBLE2 = wxNewId();
+const long ItemsAddNew::ID_STATICTEXT5 = wxNewId();
+const long ItemsAddNew::ID_SPINCTRLDOUBLE1 = wxNewId();
+const long ItemsAddNew::ID_STATICTEXT6 = wxNewId();
+const long ItemsAddNew::ID_SPINCTRL1 = wxNewId();
+const long ItemsAddNew::ID_STATICTEXT7 = wxNewId();
+const long ItemsAddNew::ID_SPINCTRL3 = wxNewId();
+const long ItemsAddNew::ID_STATICTEXT8 = wxNewId();
+const long ItemsAddNew::ID_SPINCTRL2 = wxNewId();
+const long ItemsAddNew::ID_BUTTON2 = wxNewId();
+//*)
+
+BEGIN_EVENT_TABLE(ItemsAddNew,wxDialog)
+    //(*EventTable(ItemsAddNew)
+    //*)
+END_EVENT_TABLE()
+
+ItemsAddNew::ItemsAddNew(wxWindow* parent,wxWindowID id,const wxPoint& pos,const wxSize& size)
+{
+    //(*Initialize(ItemsAddNew)
+    wxBoxSizer* BoxSizer10;
+    wxBoxSizer* BoxSizer11;
+    wxBoxSizer* BoxSizer12;
+    wxBoxSizer* BoxSizer13;
+    wxBoxSizer* BoxSizer14;
+    wxBoxSizer* BoxSizer1;
+    wxBoxSizer* BoxSizer2;
+    wxBoxSizer* BoxSizer3;
+    wxBoxSizer* BoxSizer4;
+    wxBoxSizer* BoxSizer5;
+    wxBoxSizer* BoxSizer6;
+    wxBoxSizer* BoxSizer7;
+    wxBoxSizer* BoxSizer8;
+    wxBoxSizer* BoxSizer9;
+
+    Create(parent, wxID_ANY, _("Add New Item"), wxDefaultPosition, wxDefaultSize, wxDEFAULT_DIALOG_STYLE, _T("wxID_ANY"));
+    BoxSizer1 = new wxBoxSizer(wxVERTICAL);
+    BoxSizer2 = new wxBoxSizer(wxVERTICAL);
+    BoxSizer3 = new wxBoxSizer(wxHORIZONTAL);
+    StaticText1 = new wxStaticText(this, ID_STATICTEXT1, _("Name :"), wxDefaultPosition, wxDefaultSize, 0, _T("ID_STATICTEXT1"));
+    BoxSizer3->Add(StaticText1, 0, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    Name = new wxTextCtrl(this, ID_TEXTCTRL1, _("Items Name.."), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_TEXTCTRL1"));
+    BoxSizer3->Add(Name, 1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    BoxSizer2->Add(BoxSizer3, 1, wxEXPAND, 5);
+    BoxSizer5 = new wxBoxSizer(wxHORIZONTAL);
+    StaticText2 = new wxStaticText(this, ID_STATICTEXT2, _("Description :"), wxDefaultPosition, wxDefaultSize, 0, _T("ID_STATICTEXT2"));
+    BoxSizer5->Add(StaticText2, 0, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    Description = new wxTextCtrl(this, ID_TEXTCTRL2, _("Items Description.."), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_TEXTCTRL2"));
+    BoxSizer5->Add(Description, 1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    BoxSizer2->Add(BoxSizer5, 1, wxEXPAND, 5);
+    BoxSizer6 = new wxBoxSizer(wxHORIZONTAL);
+    BoxSizer9 = new wxBoxSizer(wxHORIZONTAL);
+    StaticText3 = new wxStaticText(this, ID_STATICTEXT3, _("Quantity :"), wxDefaultPosition, wxDefaultSize, 0, _T("ID_STATICTEXT3"));
+    BoxSizer9->Add(StaticText3, 0, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    Quantity = new wxSpinCtrl(this, ID_SPINCTRL4, _T("0"), wxDefaultPosition, wxDefaultSize, 0, 0, 999999, 0, _T("ID_SPINCTRL4"));
+    Quantity->SetValue(_T("0"));
+    BoxSizer9->Add(Quantity, 1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    BoxSizer6->Add(BoxSizer9, 1, wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    BoxSizer12 = new wxBoxSizer(wxHORIZONTAL);
+    StaticText4 = new wxStaticText(this, ID_STATICTEXT4, _("Unit Cost :"), wxDefaultPosition, wxDefaultSize, 0, _T("ID_STATICTEXT4"));
+    BoxSizer12->Add(StaticText4, 0, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    UnitCost = new wxSpinCtrlDouble(this, ID_SPINCTRLDOUBLE2, _T("0"), wxDefaultPosition, wxDefaultSize, 0, 0, 999999, 0, 0.01, _T("ID_SPINCTRLDOUBLE2"));
+    UnitCost->SetValue(_T("0"));
+    BoxSizer12->Add(UnitCost, 1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    BoxSizer6->Add(BoxSizer12, 1, wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    BoxSizer2->Add(BoxSizer6, 1, wxEXPAND, 5);
+    BoxSizer7 = new wxBoxSizer(wxHORIZONTAL);
+    BoxSizer10 = new wxBoxSizer(wxHORIZONTAL);
+    StaticText5 = new wxStaticText(this, ID_STATICTEXT5, _("HSN :"), wxDefaultPosition, wxDefaultSize, 0, _T("ID_STATICTEXT5"));
+    BoxSizer10->Add(StaticText5, 0, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    HSN = new wxSpinCtrlDouble(this, ID_SPINCTRLDOUBLE1, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0, 0, 999999, 0, 1, _T("ID_SPINCTRLDOUBLE1"));
+    BoxSizer10->Add(HSN, 1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    BoxSizer7->Add(BoxSizer10, 1, wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    BoxSizer13 = new wxBoxSizer(wxHORIZONTAL);
+    StaticText6 = new wxStaticText(this, ID_STATICTEXT6, _("SGST :"), wxDefaultPosition, wxDefaultSize, 0, _T("ID_STATICTEXT6"));
+    BoxSizer13->Add(StaticText6, 0, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    SGST = new wxSpinCtrl(this, ID_SPINCTRL1, _T("0"), wxDefaultPosition, wxDefaultSize, 0, 0, 100, 0, _T("ID_SPINCTRL1"));
+    SGST->SetValue(_T("0"));
+    BoxSizer13->Add(SGST, 1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    BoxSizer7->Add(BoxSizer13, 1, wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    BoxSizer2->Add(BoxSizer7, 1, wxEXPAND, 5);
+    BoxSizer8 = new wxBoxSizer(wxHORIZONTAL);
+    BoxSizer11 = new wxBoxSizer(wxHORIZONTAL);
+    StaticText7 = new wxStaticText(this, ID_STATICTEXT7, _("CSGT :"), wxDefaultPosition, wxDefaultSize, 0, _T("ID_STATICTEXT7"));
+    BoxSizer11->Add(StaticText7, 0, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    CGST = new wxSpinCtrl(this, ID_SPINCTRL3, _T("0"), wxDefaultPosition, wxDefaultSize, 0, 0, 100, 0, _T("ID_SPINCTRL3"));
+    CGST->SetValue(_T("0"));
+    BoxSizer11->Add(CGST, 1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    BoxSizer8->Add(BoxSizer11, 1, wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    BoxSizer14 = new wxBoxSizer(wxHORIZONTAL);
+    StaticText8 = new wxStaticText(this, ID_STATICTEXT8, _("Cess :"), wxDefaultPosition, wxDefaultSize, 0, _T("ID_STATICTEXT8"));
+    BoxSizer14->Add(StaticText8, 0, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    Cess = new wxSpinCtrl(this, ID_SPINCTRL2, _T("0"), wxDefaultPosition, wxDefaultSize, 0, 0, 100, 0, _T("ID_SPINCTRL2"));
+    Cess->SetValue(_T("0"));
+    BoxSizer14->Add(Cess, 1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    BoxSizer8->Add(BoxSizer14, 1, wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    BoxSizer2->Add(BoxSizer8, 1, wxEXPAND, 5);
+    BoxSizer1->Add(BoxSizer2, 1, wxTOP|wxLEFT|wxRIGHT|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    BoxSizer4 = new wxBoxSizer(wxHORIZONTAL);
+    Button1 = new wxButton(this, wxID_OK, _("OK"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("wxID_OK"));
+    BoxSizer4->Add(Button1, 1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    Clear = new wxButton(this, ID_BUTTON2, _("Clear"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON2"));
+    BoxSizer4->Add(Clear, 1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    Cancel = new wxButton(this, wxID_CANCEL, _("Cancel"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("wxID_CANCEL"));
+    BoxSizer4->Add(Cancel, 1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    BoxSizer1->Add(BoxSizer4, 0, wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    SetSizer(BoxSizer1);
+    BoxSizer1->Fit(this);
+    BoxSizer1->SetSizeHints(this);
+    Center();
+
+    Connect(ID_BUTTON2,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&ItemsAddNew::OnClearClick);
+    //*)
+}
+
+ItemsAddNew::~ItemsAddNew()
+{
+    //(*Destroy(ItemsAddNew)
+    //*)
+}
+
+
+void ItemsAddNew::OnClearClick(wxCommandEvent& event)
+{
+    Name->Clear();
+    Description->Clear();
+    Quantity->SetValue(0);
+    UnitCost->SetValue(0);
+    HSN->SetValue(0);
+    SGST->SetValue(0);
+    CGST->SetValue(0);
+    Cess->SetValue(0);
+}

@@ -1,0 +1,98 @@
+#include "Item.h"
+#include "misc.h"
+#include <iostream>
+Item::Item(const std::string& Namex,const std::string& Descriptionx,const std::string& Quantityx,const std::string& UnitCostx,const std::string& HSNx,const std::string& SGSTx,const std::string& CGSTx,const std::string& Cessx):
+    Name{Namex},
+    Description{Descriptionx},
+    Quantity{Quantityx},
+    UnitCost{UnitCostx},
+    HSN{HSNx},
+    SGST{SGSTx},
+    CGST{CGSTx},
+    Cess{Cessx}
+{
+    std::cerr << "Created Item : " << Name << '\n';
+}
+
+void Item::SetData(const std::string& Namex,const std::string& Descriptionx,const std::string& Quantityx,const std::string& UnitCostx,const std::string& HSNx,const std::string& SGSTx,const std::string& CGSTx,const std::string& Cessx)
+{
+    Name = Namex;
+    Description = Descriptionx;
+    Quantity = Quantityx;
+    UnitCost = UnitCostx;
+    HSN = HSNx;
+    CGST = CGSTx;
+    SGST = SGSTx;
+    Cess = Cessx;
+}
+
+void Item::SetData(const std::string& str)
+{
+    std::vector<std::string> vec;
+    int ii{0};
+    int where{0};
+    for(int i{0};i<=7;++i)
+        {
+            if(i<=6)
+            {
+                where = str.find('\0',ii);
+                vec.emplace_back(str.substr(ii,(where-ii)));
+            }
+            else
+            {
+                vec.emplace_back(str.substr(ii,str.size()));
+            }
+            ii = where;
+            ++ii;
+        }
+    SetData(vec[0],vec[1],vec[2],vec[3],vec[4],vec[5],vec[6],vec[7]);
+}
+
+std::string Item::GetGrandTotal()
+{
+    double Total{std::stoi(Quantity) * std::stod(UnitCost)};
+    Total += (Total * (std::stod(SGST)+std::stod(CGST)+std::stod(Cess))/100);
+    return RemoveZeros(Total);
+}
+std::string Item::GetTotal()
+{
+    try
+    {
+    double Total{std::stoi(Quantity) * std::stod(UnitCost)};
+    std::string str = std::to_string(Total);
+    str.erase ( str.find_last_not_of('0') + 1, std::string::npos );
+    str.erase ( str.find_last_not_of('.') + 1, std::string::npos );
+    return R;
+    }
+    catch(...){return "ERROR";}
+}
+
+std::string Item::GetTax()
+{
+    std::string str = std::to_string((std::stoi(Quantity) * std::stod(UnitCost)) * ((std::stod(SGST)+std::stod(CGST)+std::stod(Cess))/100));
+    str.erase ( str.find_last_not_of('0') + 1, std::string::npos );
+    str.erase ( str.find_last_not_of('.') + 1, std::string::npos );
+    return str;
+}
+
+std::ostream& operator<<(std::ostream& out, const Item& item)
+{
+    out << item.Name << '\0' << item.Description  << '\0' << item.Quantity  << '\0' << item.UnitCost  << '\0' << item.HSN  << '\0' << item.SGST  << '\0' << item.CGST  << '\0' << item.Cess << '\n';
+    return out;
+}
+std::istream& operator>>(std::istream& in, Item& item)
+{
+    std::getline(in,item.Name,'\0');
+    std::getline(in,item.Description,'\0');
+    std::getline(in,item.Quantity,'\0');
+    std::getline(in,item.UnitCost,'\0');
+    std::getline(in,item.HSN,'\0');
+    std::getline(in,item.SGST,'\0');
+    std::getline(in,item.SGST,'\0');
+    std::getline(in,item.Cess,'\n');
+    return in;
+}
+Item::~Item()
+{
+    std::cerr << "Deleted Item : " << Name << '\n';
+}
