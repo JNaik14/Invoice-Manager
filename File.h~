@@ -12,5 +12,5 @@ public:
     void writeFile(std::vector<std::string>& vec,const std::string& f);
     void writ(const std::string& s,std::fstream& f);
 };
-//Remove this file sucker!!. its not needed.
+
 #endif // FILE_H
